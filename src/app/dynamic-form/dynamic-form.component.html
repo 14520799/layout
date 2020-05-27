@@ -1,0 +1,33 @@
+<form [formGroup]='dynamicForm' (ngSubmit)='onSubmit()'>
+  <div>
+    <label>Number of Tickets</label>
+    <select formControlName="numberOfTickets" (change)="onChangeTickets($event)">
+      <option value=""></option>
+      <option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">{{i}}</option>
+    </select>
+    <div *ngIf="submitted && f.numberOfTickets.errors" class="">
+      <div *ngIf="f.numberOfTickets.errors.required">Number of tickets is required</div>
+    </div>
+  </div>
+  <div *ngFor="let ticket of t.controls; let i = index">
+    <h5>Ticket {{i+1}}</h5>
+    <div [formGroup]="ticket">
+      <div class="name">
+        <label>Name</label>
+        <input type="text" formControlName="name" name='name' id='name'>
+      </div>
+      <div class="email">
+        <label>Email</label>
+        <input type="text" formControlName="email">
+        <div *ngIf="submitted && ticket.controls.email.errors">
+          <div *ngIf="ticket.controls.email.errors.required">Email is required</div>
+          <div *ngIf="ticket.controls.email.errors.email">Email must be a valid email address</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button (click)="onReset()">Reset</button>
+    <button (click)="onClear()">Clear</button>
+  </div>
+</form>

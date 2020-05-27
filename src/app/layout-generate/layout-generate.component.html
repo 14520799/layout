@@ -1,0 +1,19 @@
+<div class="row">
+  <app-edit-layout></app-edit-layout>
+</div>
+
+<div>---------------</div>
+
+<div *ngFor="let layout of layouts" class="container">
+  <div class="row" [style.height]="layout.size" [ngClass]="{ 'border-1': layout.columns.length === 0 }">
+    <ng-template [ngIf]="layout.columns.length">
+      <div *ngFor="let col of layout.columns" [style.width]="col.size" class="column">
+        <div class="" *ngFor="let row of col.rows" [style.height]="row.size" class="r-row">A</div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<pre>
+  {{ layouts | json}}
+</pre>
